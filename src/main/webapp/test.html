@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>websocket</title>
+</head>
+<body>
+<script type="text/javascript">
+    var websocket;
+    websocket = new WebSocket("ws://localhost:8899/ws")
+    websocket.onmessage = function (ev) {
+        var push = document.getElementById('get')
+        push.value = push.value+'\n'+ev.data
+    }
+    websocket.onopen = function (ev) {
+        var push = document.getElementById('get')
+        get.value='连接建立'
+    };
+    websocket.onclose = function (ev) {
+        var push = document.getElementById('get')
+        get.value='连接结束'
+    }
+
+    function send(message) {
+        websocket.send(message)
+    }
+
+</script>
+<form onsubmit="return false">
+    <textarea id="push" name="message" style="width: 400px;height: 400px"></textarea>
+
+    <input type="button" value="发送数据" onclick="send(this.form.message.value)"/>
+
+    <textarea id="get" style="width: 400px;height: 400px"></textarea>
+
+    <input type="button" value="清空内容" onclick="javascrpit:document.getElementById('get').value=''">
+</form>
+
+</body>
+</html>

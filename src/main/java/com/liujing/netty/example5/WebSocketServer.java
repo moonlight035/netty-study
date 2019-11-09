@@ -1,5 +1,6 @@
-package com.liujing.netty.example4;
+package com.liujing.netty.example5;
 
+import com.liujing.netty.example4.MyHeartServerInitializer;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.EventLoopGroup;
@@ -10,10 +11,10 @@ import io.netty.handler.logging.LoggingHandler;
 
 /**
  * @author jing.liu14@ucarinc.com
- * @date 2019/11/8
+ * @date 2019/11/9
  * @description:
  */
-public class MyHeartServer {
+public class WebSocketServer {
     public static void main(String[] args) throws InterruptedException {
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
@@ -21,8 +22,7 @@ public class MyHeartServer {
         try {
             ServerBootstrap serverBootstrap = new ServerBootstrap();
             serverBootstrap.group(bossGroup,workerGroup).channel(NioServerSocketChannel.class).
-                    handler(new LoggingHandler(LogLevel.INFO)).
-                    childHandler(new MyHeartServerInitializer());
+                    childHandler(new WebSocketInitializer());
             ChannelFuture channelFuture = serverBootstrap.bind(8899).sync();
             channelFuture.channel().closeFuture().sync();
         } finally {

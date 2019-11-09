@@ -16,7 +16,8 @@ public class MyHeartServerInitializer extends ChannelInitializer<SocketChannel> 
     @Override
     protected void initChannel(SocketChannel ch) throws Exception {
         ChannelPipeline pipeline = ch.pipeline();
-        pipeline.addLast(new IdleStateHandler(10,10,
-                10, TimeUnit.SECONDS));
+        pipeline.addLast(new IdleStateHandler(100,100,
+                5, TimeUnit.SECONDS));
+        pipeline.addLast(new MyHeartServerHandler());
     }
 }
